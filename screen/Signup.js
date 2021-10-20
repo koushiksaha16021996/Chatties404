@@ -3,9 +3,11 @@ import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import { useSafeArea } from 'react-native-safe-area-context'
 import * as firebase from 'firebase'
 import { useIsFocused } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function Signup(props) {
     const area=useSafeArea()
+    const [uname,setname]=useState("")
     const [email,setemail]=useState("")
     const [password,setpassword]=useState("")
     const [error,seterror]=useState(null)
@@ -15,7 +17,12 @@ export default function Signup(props) {
         firebase
       .auth()
       .createUserWithEmailAndPassword(email,password)
-      .then(() => props.navigation.navigate("Profileview"))
+      .then(() => {
+        AsyncStorage.setItem("email", email)
+        AsyncStorage.setItem("pass", password)
+        AsyncStorage.setItem("name", uname)
+        props.navigation.navigate("ProfileImage")
+      })
       .catch(error => seterror(error.message));
     }
     return (
@@ -24,6 +31,13 @@ export default function Signup(props) {
         {error && (
           <Text style={{ color: "red" }}>{error}</Text>
         )}
+        <TextInput
+          style={styles.textInput}
+          autoCapitalize="none"
+          placeholder="Name"
+          onChangeText={name => setname( name )}
+          value={uname}
+        />
         <TextInput
           style={styles.textInput}
           autoCapitalize="none"

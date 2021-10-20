@@ -1,7 +1,7 @@
 import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import ChatList from './chatdashboardoption/ChatList';
-import RegisterUser from './chatdashboardoption/RegisterUser';
+import ChatList from '../chatdashboardoption/ChatList';
+import RegisterUser from '../chatdashboardoption/RegisterUser';
 
 export default function ChatDashboard({navigation}) {
     const Tab=createMaterialTopTabNavigator();

@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     View,
     StyleSheet,
@@ -16,11 +16,25 @@ import {
   import { SimpleLineIcons } from '@expo/vector-icons';
   import * as firebase from 'firebase'
   import { useIsFocused } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CustomSidebar(props) {
     const area= useSafeArea()
     const isfocused=useIsFocused()
-    
+    const [name,setname]=useState("")
+    const [email,setemail]=useState("")
+    const [imageurl,setimageurl]=useState("https://firebasestorage.googleapis.com/v0/b/chatties-c15cc.appspot.com/o/avater.jpg?alt=media&token=4eb51b8a-fe7d-4005-b4e9-ca0a1a0dec48")
+    useEffect(()=>{
+      AsyncStorage.getItem("email").then(data=>{
+        setemail(data)
+      })
+      AsyncStorage.getItem("uname").then(data=>{
+        setname(data)
+      })
+      AsyncStorage.getItem("imageurl").then(data=>{
+        setimageurl(data)
+      })
+    },[isfocused])
     const logout=()=>{
       firebase.auth().signOut().then(res=>{
         props.navigation.navigate("Login")
@@ -29,7 +43,7 @@ export default function CustomSidebar(props) {
     return (
         <LinearGradient  start={{ x: 0, y: 0 }} end={{x: 1, y: 1 }} colors={[ '#12c2e9', '#c471ed', '#FF0080' ]} style={{ flex: 1 ,paddingTop:area.top,paddingBottom:area.bottom,}}>
             <Image
-                source={{ uri: "https://raw.githubusercontent.com/AboutReact/sampleresource/master/react_logo.png" }}
+                source={{uri:imageurl}}
                 style={styles.sideMenuProfileIcon}
             />
             <DrawerContentScrollView {...props}>

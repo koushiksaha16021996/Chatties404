@@ -19,7 +19,12 @@ var firebaseConfig = {
   measurementId: "G-V9DW1EYTYT"
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}else {
+   firebase.app(); // if already initialized, use that one
+}
 
 export default function App() {
   const stack=createStackNavigator()
@@ -30,7 +35,7 @@ export default function App() {
         <stack.Screen name="Login" component={Login}/>
         <stack.Screen name="Signup" component={Signup}/>
         <stack.Screen name="ProfileImage" component={ProfileImage}/>
-        <stack.Screen name="Profileview" component={Profileview}/>
+        <stack.Screen name="Profileview" component={Profileview} />
       </stack.Navigator>
     </NavigationContainer>
   )

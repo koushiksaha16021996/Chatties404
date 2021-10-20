@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import React, { useState ,useEffect} from 'react'
+import { StyleSheet, Text, TextInput, View, Button ,BackHandler,Alert } from 'react-native'
 import { useSafeArea } from 'react-native-safe-area-context'
 import * as firebase from 'firebase'
 import { useIsFocused } from '@react-navigation/native'
@@ -10,7 +10,27 @@ export default function Login(props) {
     const [password,setpassword]=useState("")
     const [error,seterror]=useState(null)
     const isfocused=useIsFocused()
-    
+    // useEffect(() => {
+    //   const backAction = () => {
+    //     Alert.alert("Hold on!", "Are you sure you want to go back?", [
+    //       {
+    //         text: "Cancel",
+    //         onPress: () => null,
+    //         style: "cancel"
+    //       },
+    //       { text: "YES", onPress: () => BackHandler.exitApp() }
+    //     ]);
+    //     return true;
+    //   };
+  
+    //   const backHandler = BackHandler.addEventListener(
+    //     "hardwareBackPress",
+    //     backAction
+    //   );
+  
+    //   return () => backHandler.remove();
+    // }, [isfocused]);
+
     const handleLogin=()=>{
       firebase
       .auth()
@@ -24,6 +44,7 @@ export default function Login(props) {
     return (
         <View style={{paddingTop:area.top,paddingBottom:area.bottom,width:'100%',height:"100%",justifyContent: "center",alignItems: "center"}}>
             <Text>Login</Text>
+            
         {error && 
           <Text style={{ color: "red" }}>{error}</Text>
         }

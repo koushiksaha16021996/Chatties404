@@ -1,8 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { Text, TouchableOpacity, View ,Image} from 'react-native'
-import ChatDashboard from './chatscreen/ChatDashboard'
-import ChatScreen from './chatscreen/ChatScreen'
+import ChatDashboard from '../chatscreen/ChatDashboard'
+import ChatScreen from '../chatscreen/ChatScreen'
 
 export default function DashboardStack({navigation}) {
     const stack=createStackNavigator()
